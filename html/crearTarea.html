@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    
+    <title>Tarea</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="C:\Users\Practicante_Sistemas\Documents\Sebas-Rosa\fotos\Imagenes\LOGO_CARBOEXCO.png" class="card-img-top" alt="..."></a>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link"  href="../index.html">Inicio</a>
+              <a class="nav-link" href="proyecto.html">Proyectos</a>
+              <a class="nav-link active" aria-current="page" href="#">Tareas</a>
+              <a class="nav-link" href="bitacora.html">Seguimiento</a>
+            </div>
+          </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <button class="btn btn-danger  d-flex align-items-center m-1" type="button" onclick="perfil()">
+            <i class="bi bi-person"></i> Perfil
+          </button>
+          
+        </div>
+        
+      </nav>
+      <div class="d-flex justify-content-center align-middlee">
+        <table class="table align-top mx-5" >
+          <tbody class="mx-5">
+              <tr>
+                  <th scope="row" class="table-active">codigo de proyecto:</th>
+                  <th><h4>#1521</h4></th>
+                  <th scope="row" class="table-active"> Nombre de proyecto:</th>
+                  <th><h4>Construción de edificio</h4></th>
+              </tr>
+              <tr>
+                  <th scope="row" class="table-active">Responsable:</th>
+                  <th>Jose Antonio Perez Albarracin</th>
+              </tr>
+  
+          </tbody>
+        </table>
+      </div>
+      <section class="d-flex justify-content-center align-middlee">
+        
+      <div class="card" style="width: 35rem;">
+            <h3>Crear tarea </h3>
+            <p id="date">Fecha</p>
+        <div class="card-body">
+        <form>
+        <!-- Nombre input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="form1Example1" class="form-control" />
+          <label class="form-label" for="form1Example1">Nombre de tarea</label>
+        </div>
+      
+        <!-- textArea input -->
+        <div class="form-outline mb-4">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <label for="floatingTextarea">Descripción</label>
+        </div>
+
+        <!-- Fecha -->
+      <div>
+        <input type="date" class="form-control" id="fechacreada">
+        <label for="fechacreada"></label>
+      </div>
+        
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-success btn-block">Crear</button>
+      </form>
+      </div>
+    </div>
+      </section>
+      <script>var hoy =Date.now().toString
+        document.getElementById=hoy;
+        
+        function perfil() { window.location='perfil.html'}
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
