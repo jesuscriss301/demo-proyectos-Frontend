@@ -1,14 +1,20 @@
-var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/proyecto.json?token=GHSAT0AAAAAAB56WV5DE27QFKWPUTBWIY6GY6UI46A"
+
+
+  var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/proyecto.json";
 fetch(url)
     .then((response) => response.json())
     .then((json) => cargaProyectos(json));
 
-    
-
 
     function cargaProyectos(json) {
+      proyectojson =json;
         let tblBody= document.querySelector("#proyectos");
-        let table = document.querySelector("#table")
+        let proyecto= document.querySelector("#proyecto");
+        let table = document.querySelector("#table");
+        let actualizar= document.querySelector("#actualizar")
+        let eliminar= document.querySelector("#eliminar")
+        let ver= document.querySelector("#ver")
+
         for (var i = 0; i < json.length; i++) {
             // Crea las hileras de la tabla
             var hilera = document.createElement("tr");
@@ -19,7 +25,7 @@ fetch(url)
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(son[i].idProyecto.toString());
+              var textoCelda = document.createTextNode(json[i].idProyecto.toString());
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
@@ -27,34 +33,69 @@ fetch(url)
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(son[i].idProyecto.toString());
+              var textoCelda = document.createTextNode(json[i].nombreProyecto.toString());
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(son[i].idProyecto.toString());
+              var textoCelda = document.createTextNode(json[i].descripcionProyecto.toString());
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(son[i].idProyecto.toString());
+              var textoCelda = document.createTextNode("0%");
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(son[i].idProyecto.toString());
+              var textoCelda = document.createTextNode("prueba");
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(son[i].idProyecto.toString());
-              celda.appendChild(textoCelda);
+
+              var newactualizar=actualizar.cloneNode(true);
+              newactualizar.setAttribute("onclick", "actualizar("+i+")");
+
+              var newver=ver.cloneNode(true);
+              newver.setAttribute("onclick", "ver("+i+")");
+
+              var neweliminar=eliminar.cloneNode(true);
+              neweliminar.setAttribute("onclick", "eliminar("+i+")");
+              celda.appendChild(newactualizar);
+              celda.appendChild(newver);
+              celda.appendChild(neweliminar);
               hilera.appendChild(celda);
-            
         
             // agrega la hilera al final de la tabla (al final del elemento tblbody)
             tblBody.appendChild(hilera);
           }
+          
           table.appendChild(tblBody);
-          console.log(json);
+          proyecto.remove();
     }
     function fecha() {
         var f = new Date();
         return f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+    }
+    function actualizar(id) {
+      
+      var select = proyectojson[id];
+
+      document.cookie="proyecto"+select;
+      window.location='crearProyecto.html'
+    }
+    function ver(id) {
+            
+      var select = proyectojson[id];
+
+      document.cookie="proyecto"+select;
+      window.location='crearProyecto.html'
+    }
+    function eliminar(id) {
+      console.log(proyectojson);
+      
+      for(var i in proyectojson){
+        if(i!=id){
+              
+        }
+
+      }
+      console.log(proyectojson);
     }
