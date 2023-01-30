@@ -3,6 +3,7 @@
         "idProyecto":110,
         "nombreProyecto": "departamento de sistemas",
         "descripcionProyecto": "se requiere crear el de partamento d sistmas ubicdo cerca a la entrada ",
+        "responsable":"juan",
         "areaTerreno":25,
         "diseño":{
                 "idDiseño":"1",
@@ -24,6 +25,7 @@
         "idProyecto":111,
         "nombreProyecto": "prueba",
         "descripcionProyecto": "esto es una prueba de craer un proyecto",
+        "responsable":"Pedro Garcia",
         "areaTerreno":45,
         "diseño":{},
         "presupuesto":{

@@ -1,7 +1,7 @@
 
 
   var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/proyecto.json";
-fetch(url)
+    fetch(url)
     .then((response) => response.json())
     .then((json) => cargaProyectos(json));
 
@@ -77,18 +77,17 @@ fetch(url)
     }
     function actualizar(id) {
       
-      var select = proyectojson[id];
-
-      document.cookie="proyecto"+select;
+      localStorage.setItem("proyecto", id);
       window.location='crearProyecto.html'
     }
     function ver(id) {
             
-      var select = proyectojson[id];
+      //var select = proyectojson[id];
 
-      document.cookie="proyecto"+select;
-      window.location='crearProyecto.html'
+      localStorage.setItem("proyecto", id);
+      window.location='tarea.html'
     }
+
     function eliminar(id) {
       var nuevo =[];
       for(var i in proyectojson){
