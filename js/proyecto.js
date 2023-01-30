@@ -11,11 +11,12 @@ fetch(url)
         let tblBody= document.querySelector("#proyectos");
         let proyecto= document.querySelector("#proyecto");
         let table = document.querySelector("#table");
-        let actualizar= document.querySelector("#actualizar")
-        let eliminar= document.querySelector("#eliminar")
-        let ver= document.querySelector("#ver")
-
+        let actualizar= document.querySelector("#actualizar");
+        let eliminar= document.querySelector("#eliminar");
+        let ver= document.querySelector("#ver");
+        tblBody.innerHTML="";
         for (var i = 0; i < json.length; i++) {
+            
             // Crea las hileras de la tabla
             var hilera = document.createElement("tr");
         
@@ -89,13 +90,12 @@ fetch(url)
       window.location='crearProyecto.html'
     }
     function eliminar(id) {
-      console.log(proyectojson);
-      
+      var nuevo =[];
       for(var i in proyectojson){
         if(i!=id){
-              
+            nuevo.push(proyectojson[i]);
         }
-
       }
-      console.log(proyectojson);
+      proyectojson=nuevo;
+      cargaProyectos(proyectojson);
     }
