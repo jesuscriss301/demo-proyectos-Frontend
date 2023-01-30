@@ -16,9 +16,9 @@
         "etapa": "prueba",
         "completado":0,
         "fecha":"12/01/2013"
-    }
+    },
     {
-        "idProyecto":101,
+        "idProyecto":102,
         "idTarea":1,
         "nombreTarea": "cambio de cargadores",
         "descripcionTarea": "cambio de cargadores dañados de los radios ",
