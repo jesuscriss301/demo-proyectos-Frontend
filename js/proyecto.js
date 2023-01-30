@@ -1,13 +1,18 @@
 
 
-  var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/proyecto.json";
-    fetch(url)
-    .then((response) => response.json())
-    .then((json) => cargaProyectos(json));
-
+        var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/proyecto.json";
+        fetch(url)
+        .then((response) => response.json())
+        .then((json) => cargaProyectos(json));
 
     function cargaProyectos(json) {
-      proyectojson =json;
+      let a=localStorage.getItem("proyectonuevo");
+       
+      if(a!=""){
+        proyectojson=JSON.parse(a);
+      }else{
+        proyectojson =json;
+      }
         let tblBody= document.querySelector("#proyectos");
         let proyecto= document.querySelector("#proyecto");
         let table = document.querySelector("#table");
@@ -15,18 +20,17 @@
         let eliminar= document.querySelector("#eliminar");
         let ver= document.querySelector("#ver");
         tblBody.innerHTML="";
-        for (var i = 0; i < json.length; i++) {
+        for (var i = 0; i < proyectojson.length; i++) {
             
             // Crea las hileras de la tabla
             var hilera = document.createElement("tr");
-        
             
               var celda = document.createElement("td");
               var textoCelda = document.createTextNode(i+1);
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(json[i].idProyecto.toString());
+              var textoCelda = document.createTextNode(JSON.stringify( proyectojson[i].idProyecto));
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
@@ -34,11 +38,11 @@
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(json[i].nombreProyecto.toString());
+              var textoCelda = document.createTextNode(proyectojson[i].nombreProyecto.toString());
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(json[i].descripcionProyecto.toString());
+              var textoCelda = document.createTextNode(proyectojson[i].descripcionProyecto.toString());
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
@@ -69,6 +73,7 @@
           }
           
           table.appendChild(tblBody);
+          localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
           proyecto.remove();
     }
     function fecha() {
@@ -96,5 +101,35 @@
         }
       }
       proyectojson=nuevo;
+      localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
       cargaProyectos(proyectojson);
+    }
+
+    function crarProyecto() {
+      
+      let nombreP= document.querySelector("#nombreProyecto");
+      let descripcionP = document.querySelector("#descripcionProyecto");
+      let n =100;
+      try {
+        n = proyectojson[proyectojson.length-1].idProyecto + 1;
+      } catch (error) {
+       n =100;
+      }
+      
+        var nuevo={
+          "idProyecto": n ,
+          "nombreProyecto": nombreP.value,
+          "descripcionProyecto": descripcionP.value,
+          "responsable":"",
+          "areaTerreno":0,
+          "diseño":{},
+          "presupuesto":{} 
+      
+     // var nuevoPJ = [proyectojson, nuevo];
+     // proyectojson= nuevoPJ;
+    }
+    proyectojson.push(nuevo);
+    localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
+        window.location='proyecto.html';
+        cargaProyectos(proyectojson);
     }
