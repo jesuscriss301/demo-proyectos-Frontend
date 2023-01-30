@@ -105,7 +105,7 @@
       cargaProyectos(proyectojson);
     }
 
-    function crarProyecto() {
+    function crearProyecto() {
       
       let nombreP= document.querySelector("#nombreProyecto");
       let descripcionP = document.querySelector("#descripcionProyecto");

@@ -27,7 +27,7 @@ let ver= document.querySelector("#ver");
 tblBody.innerHTML="";
 for (var i = 0; i < tareajson.length; i++) {
     // Crea las hileras de la tabla
-    if (true) {
+    if (tareajson[i].idProyecto.toString() == jsonproyecto.idProyecto) {
     var hilera = document.createElement("tr");
     
       var celda = document.createElement("td");
@@ -39,23 +39,23 @@ for (var i = 0; i < tareajson.length; i++) {
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(JSON.stringify(tareajson[i].nombreTarea));
+      var textoCelda = document.createTextNode(tareajson[i].nombreTarea.toString());
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(JSON.stringify(tareajson[i].descripcionTarea));
+      var textoCelda = document.createTextNode(tareajson[i].descripcionTarea.toString());
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(JSON.stringify(tareajson[i].fecha));
+      var textoCelda = document.createTextNode(tareajson[i].fecha.toString());
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(JSON.stringify(tareajson[i].etapa));
+      var textoCelda = document.createTextNode(tareajson[i].etapa.toString());
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(JSON.stringify(tareajson[i].completado));
+      var textoCelda = document.createTextNode(tareajson[i].completado.toString());
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       
@@ -96,4 +96,59 @@ function cargaProyectos(){
     nombreProyecto.textContent=jsonproyecto.nombreProyecto;
     responsable.textContent= jsonproyecto.responsable;
 }
+function actualizar(id) {
+      
+    localStorage.setItem("tarea", id);
+    window.location='crearTarea.html'
+  }
+  
+  function ver(id) {
 
+    localStorage.setItem("tarea", id);
+    window.location='bitacora.html'
+  }
+
+  function eliminar(id) {
+    var nuevo =[];
+    for(var i in tareajson){
+      if(i!=id){
+          nuevo.push(tareajson[i]);
+      }
+    }
+    proyectojson=nuevo;
+    localStorage.setItem("tareas",JSON.stringify(proyectojson));
+    cargaProyectos(proyectojson);
+  }
+
+  function crearTarea() {
+    
+    let nombreT= document.querySelector("#nombreTarea");
+    let descripcionT = document.querySelector("#DescripcionTarea");
+    let completoT = document.querySelector("#completo");
+    let n =100;
+    try {
+      n = tareajson[tareajson.length-1].idTarea + 1;
+    } catch (error) {
+     n =100;
+    }
+    
+      var nuevo= {
+        "idProyecto":jsonproyecto.idProyecto,
+        "idTarea":n,
+        "nombreTarea": nombreT.value,
+        "descripcionTarea": descripcionT.value,
+        "etapa": "prueba",
+        "completado":completoT.checked,
+        "fecha":fecha()
+    }
+  tareajson.push(nuevo);
+  localStorage.setItem("tareas",JSON.stringify(tareajson));
+      window.location='tareas.html';
+      cargaTareas(tareasjson);
+  }
+  function fecha() {
+    var f = new Date();
+    return f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+}
+
+ 
