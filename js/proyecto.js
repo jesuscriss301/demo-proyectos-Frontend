@@ -109,6 +109,9 @@
       
       let nombreP= document.querySelector("#nombreProyecto");
       let descripcionP = document.querySelector("#descripcionProyecto");
+      let responsableP = document.querySelector("#nombreResponsable");
+      let areaP = document.querySelector("#area");
+      let planosP = document.querySelector("#planosProyecto");
       let n =100;
       try {
         n = proyectojson[proyectojson.length-1].idProyecto + 1;
@@ -120,9 +123,9 @@
           "idProyecto": n ,
           "nombreProyecto": nombreP.value,
           "descripcionProyecto": descripcionP.value,
-          "responsable":"",
-          "areaTerreno":0,
-          "diseño":{},
+          "responsable":responsableP.value,
+          "areaTerreno":areaP.value,
+          "diseño":planosP.value,
           "presupuesto":{} 
       
      // var nuevoPJ = [proyectojson, nuevo];

@@ -4,3 +4,6 @@ function perfil() { window.location='perfil.html'
 function crearTareas() {
     window.location='crearTarea.html'
 }
+function crearRegistro() {
+    window.location='crearRegistro.html'
+}

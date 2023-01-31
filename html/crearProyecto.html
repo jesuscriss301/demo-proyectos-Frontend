@@ -56,11 +56,20 @@
             <textarea class="form-control" placeholder="Leave a comment here" id="descripcionProyecto"></textarea>
             <label for="floatingTextarea">Descripción</label>
         </div>
+        <div class="form-outline mb-4">
+          <input type="number" id="area" class="form-control" />
+          <label class="form-label" for="form1Example1">Area de terreno en m<sup>2</sup></label>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="text" id="nombreResponsable" class="form-control" />
+          <label class="form-label" for="form1Example1">Nombre de responsable</label>
+        </div>
       
-        <div class="input-group mb-3">
-            
-            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
-          </div>
+        <div class="form-outline mb-4">
+          <input type="url" id="planosProyecto" class="form-control" />
+          <label class="form-label" for="direcionFotografia">link-planos</label>
+        </div>
+        
         <!-- Submit button -->
         <button type="button" onclick="crearProyecto()" class="btn btn-success btn-block">Crear</button>
       </form>

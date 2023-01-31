@@ -39,23 +39,23 @@ for (var i = 0; i < tareajson.length; i++) {
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(tareajson[i].nombreTarea.toString());
+      var textoCelda = document.createTextNode(tareajson[i].nombreTarea);
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(tareajson[i].descripcionTarea.toString());
+      var textoCelda = document.createTextNode(tareajson[i].descripcionTarea);
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(tareajson[i].fecha.toString());
+      var textoCelda = document.createTextNode(tareajson[i].fecha);
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(tareajson[i].etapa.toString());
+      var textoCelda = document.createTextNode(tareajson[i].etapa);
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(tareajson[i].completado.toString());
+      var textoCelda = document.createTextNode(tareajson[i].completado);
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       
@@ -80,7 +80,7 @@ for (var i = 0; i < tareajson.length; i++) {
   
   table.appendChild(tblBody);
   //localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
-  tarea.remove();
+  //tarea.remove();
     }
 
 function cargaProyectos(){
