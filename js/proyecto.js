@@ -19,6 +19,7 @@
         let actualizar= document.querySelector("#actualizar");
         let eliminar= document.querySelector("#eliminar");
         let ver= document.querySelector("#ver");
+        let plano= document.querySelector("#plano");
         tblBody.innerHTML="";
         for (var i = 0; i < proyectojson.length; i++) {
             
@@ -49,9 +50,12 @@
               var textoCelda = document.createTextNode("0%");
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
+
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode("prueba");
-              celda.appendChild(textoCelda);
+              var newplano=plano.cloneNode(true);
+              newplano.setAttribute("onclick", "plano("+i+")");
+              //var textoCelda = document.createTextNode("prueba");
+              celda.appendChild(newplano);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
 
@@ -83,12 +87,16 @@
     function actualizar(id) {
       
       localStorage.setItem("proyecto", id);
-      window.location='crearProyecto.html'
+      window.location='actualizarProyecto.html'
+    }
+    function plano(id) {
+      let plano = proyectojson[id].diseño.toString();
+      if (plano != {}) {
+        var win = window.open(plano, '_blank');
+        win.focus();
+      }
     }
     function ver(id) {
-            
-      //var select = proyectojson[id];
-
       localStorage.setItem("proyecto", id);
       window.location='tarea.html'
     }
@@ -118,7 +126,6 @@
       } catch (error) {
        n =100;
       }
-      
         var nuevo={
           "idProyecto": n ,
           "nombreProyecto": nombreP.value,
@@ -127,9 +134,6 @@
           "areaTerreno":areaP.value,
           "diseño":planosP.value,
           "presupuesto":{} 
-      
-     // var nuevoPJ = [proyectojson, nuevo];
-     // proyectojson= nuevoPJ;
     }
     proyectojson.push(nuevo);
     localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
