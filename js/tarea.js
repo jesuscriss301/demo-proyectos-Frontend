@@ -117,7 +117,7 @@ function actualizar(id) {
     }
     proyectojson=nuevo;
     localStorage.setItem("tareas",JSON.stringify(proyectojson));
-    cargaProyectos(proyectojson);
+    cargaTareas(proyectojson);
   }
 
   function crearTarea() {
@@ -141,10 +141,10 @@ function actualizar(id) {
         "completado":completoT.checked,
         "fecha":fecha()
     }
-  tareajson.push(nuevo);
-  localStorage.setItem("tareas",JSON.stringify(tareajson));
-      window.location='tareas.html';
-      cargaTareas(tareasjson);
+    tareajson.push(nuevo);
+    localStorage.setItem("tareas",JSON.stringify(tareajson));
+    window.location='tarea.html';
+    cargaTareas(tareasjson);
   }
   function fecha() {
     var f = new Date();

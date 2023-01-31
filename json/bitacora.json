@@ -1,0 +1,26 @@
+[
+    {
+        "idProyecto":100,
+        "idTarea":1,
+        "idBitacora":1,
+        "descripcionBitacora": "se requiere crear el de partamento d sistmas ubicdo cerca a la entrada ",
+        "fotografia":"",
+        "fecha":"12/01/2013"
+    }
+    {
+        "idProyecto":100,
+        "idTarea":1,
+        "idBitacora":2,
+        "descripcionBitacora": "se requiere crear el de partamento d sistmas ubicdo cerca a la entrada ",
+        "fotografia":"",
+        "fecha":"12/01/2018"
+    }
+    {
+        "idProyecto":100,
+        "idTarea":1,
+        "idBitacora":3,
+        "descripcionBitacora": "se requiere crear el de partamento d sistmas ubicdo cerca a la entrada ",
+        "fotografia":"",
+        "fecha":"12/01/2022"
+    }
+]
