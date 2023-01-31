@@ -12,20 +12,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     
-    <title>Proyecto</title>
+    <title>Tarea</title>
 </head>
 <body onload="actualizacion()">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#"><img src="C:\Users\Practicante_Sistemas\Documents\Sebas-Rosa\fotos\Imagenes\LOGO_CARBOEXCO.png" class="card-img-top" alt="..."></a>
-          
-          
-
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link"  href="../index.html">Inicio</a>
-              <a class="nav-link active" aria-current="page" href="#">Proyectos</a>
-              <a class="nav-link" href="tarea.html">Tareas</a>
+              <a class="nav-link" href="proyecto.html">Proyectos</a>
+              <a class="nav-link active" aria-current="page" href="#">Tareas</a>
               <a class="nav-link" href="bitacora.html">Seguimiento</a>
             </div>
           </div>
@@ -39,46 +36,57 @@
         </div>
         
       </nav>
+      <div class="d-flex justify-content-center align-middlee">
+        <table class="table align-top mx-5" >
+          <tbody class="mx-5">
+              <tr>
+                  <th scope="row" class="table-active">codigo de proyecto:</th>
+                  <th><h4 id="codigoProyecto">#1521</h4></th>
+                  <th scope="row" class="table-active"> Nombre de proyecto:</th>
+                  <th><h4 id="nombreProyecto">Construción de edificio</h4></th>
+              </tr>
+              <tr>
+                  <th scope="row" class="table-active">Responsable:</th>
+                  <th id="responsable">Jose Antonio Perez Albarracin</th>
+              </tr>
+  
+          </tbody>
+        </table>
+      </div>
       <section class="d-flex justify-content-center align-middlee">
         
       <div class="card" style="width: 35rem;">
-            <h3>Actualizar proyecto</h3>
+            <h3>Actualizar tarea </h3>
         <div class="card-body">
         <form>
         <!-- Nombre input -->
         <div class="form-outline mb-4">
-          <input type="text" id="nombreProyecto" class="form-control" />
-          <label class="form-label" for="form1Example1">Nombre de proyecto</label>
+          <input type="text" id="nombreTarea" class="form-control" />
+          <label class="form-label" for="form1Example1">Nombre de tarea</label>
         </div>
       
         <!-- textArea input -->
         <div class="form-outline mb-4">
-            <textarea class="form-control" placeholder="Leave a comment here" id="descripcionProyecto"></textarea>
-            <label for="floatingTextarea">Descripción</label>
-        </div>
-        <div class="form-outline mb-4">
-          <input type="number" id="area" class="form-control" />
-          <label class="form-label" for="form1Example1">Area de terreno en m<sup>2</sup></label>
-        </div>
-        <div class="form-outline mb-4">
-          <input type="text" id="nombreResponsable" class="form-control" />
-          <label class="form-label" for="form1Example1">Nombre de responsable</label>
-        </div>
-      
-        <div class="form-outline mb-4">
-          <input type="url" id="planosProyecto" class="form-control" />
-          <label class="form-label" for="direcionFotografia">link-planos</label>
-        </div>
+          <textarea class="form-control" placeholder="Leave a comment here" id="DescripcionTarea"></textarea>
+          <label for="floatingTextarea">Descripción</label>
+      </div>
+
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="completo">
+        <label class="form-check-label" for="flexSwitchCheckDefault">tarea completada</label>
+      </div>
+      <br>
         
         <!-- Submit button -->
-        <button type="button" onclick="actualizarProyecto()" class="btn btn-success btn-block">Crear</button>
+        <button type="button" class="btn btn-success btn-block" onclick="actualizarTarea()">Crear</button>
       </form>
-      
-      <div></div>
       </div>
+    </div>
       </section>
-      <script src="../js/proyecto.js"></script>
+      
+      
       <script src="../js/location.js"></script>
+      <script src="../js/tarea.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

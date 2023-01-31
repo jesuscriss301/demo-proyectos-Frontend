@@ -99,7 +99,7 @@ function cargaProyectos(){
 function actualizar(id) {
       
     localStorage.setItem("tarea", id);
-    window.location='crearTarea.html'
+    window.location='actualizarTarea.html'
   }
   
   function ver(id) {
@@ -109,6 +109,8 @@ function actualizar(id) {
   }
 
   function eliminar(id) {
+    result = window.confirm("si elimina este proyecto se perdera toda la informacion relacionada a este");
+      if (result) {
     var nuevo =[];
     for(var i in tareajson){
       if(i!=id){
@@ -118,6 +120,7 @@ function actualizar(id) {
     proyectojson=nuevo;
     localStorage.setItem("tareas",JSON.stringify(proyectojson));
     cargaTareas(proyectojson);
+  }
   }
 
   function crearTarea() {
@@ -144,11 +147,47 @@ function actualizar(id) {
     tareajson.push(nuevo);
     localStorage.setItem("tareas",JSON.stringify(tareajson));
     window.location='tarea.html';
-    cargaTareas(tareasjson);
+    cargaTareas(tareajson);
   }
   function fecha() {
     var f = new Date();
     return f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
 }
+function actualizarTarea(){
 
- 
+  result = window.confirm("si actualiza esta tarea se perdera toda la información relacionada antes de la actualización");
+  if (result) {
+  tarea= localStorage.getItem("tarea");
+  let nombreT= document.querySelector("#nombreTarea");
+  let descripcionT= document.querySelector("#DescripcionTarea");
+  let completoT= document.querySelector("#completo");
+
+  var nuevo= {
+    "idProyecto":tareajson[tarea].idProyecto ,
+    "idTarea":tareajson[tarea].idTarea,
+    "nombreTarea": nombreT.value,
+    "descripcionTarea": descripcionT.value,
+    "etapa": "prueba",
+    "completado":completoT.checked,
+    "fecha":tareajson[tarea].fecha
+  }
+  
+  tareajson[tarea]= nuevo;
+  localStorage.setItem("tareas",JSON.stringify(tareajson));
+  
+  window.location='tarea.html'
+  }
+}
+  function actualizacion() {
+    var id= localStorage.getItem("tarea");
+    var a = localStorage.getItem("tareas");
+    tareajson=JSON.parse(a);
+    console.log(tareajson[id]);
+    let nombreT= document.querySelector("#nombreTarea");
+    let descripcionT= document.querySelector("#DescripcionTarea");
+    let checkT= document.querySelector("#completo");
+
+    nombreT.setAttribute("value",tareajson[id].nombreTarea);
+    descripcionT.innerHTML=tareajson[id].descripcionTarea;
+    checkT.setAttribute("checked",tareajson[id].completado);
+  }

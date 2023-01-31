@@ -88,7 +88,9 @@
       
       localStorage.setItem("proyecto", id);
       window.location='actualizarProyecto.html'
+
     }
+
     function plano(id) {
       let plano = proyectojson[id].diseño.toString();
       if (plano != {}) {
@@ -102,7 +104,9 @@
     }
 
     function eliminar(id) {
-      var nuevo =[];
+      result = window.confirm("si elimina este proyecto se perdera toda la informacion relacionada a este");
+      if (result) {
+        var nuevo =[];
       for(var i in proyectojson){
         if(i!=id){
             nuevo.push(proyectojson[i]);
@@ -111,6 +115,8 @@
       proyectojson=nuevo;
       localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
       cargaProyectos(proyectojson);
+      }
+      
     }
 
     function crearProyecto() {
@@ -121,11 +127,11 @@
       let areaP = document.querySelector("#area");
       let planosP = document.querySelector("#planosProyecto");
       let n =100;
-      try {
-        n = proyectojson[proyectojson.length-1].idProyecto + 1;
-      } catch (error) {
-       n =100;
-      }
+    try {
+      n = tareajson[tareajson.length-1].idTarea + 1;
+    } catch (error) {
+     n =100;
+    }
         var nuevo={
           "idProyecto": n ,
           "nombreProyecto": nombreP.value,
@@ -134,9 +140,60 @@
           "areaTerreno":areaP.value,
           "diseño":planosP.value,
           "presupuesto":{} 
-    }
-    proyectojson.push(nuevo);
-    localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
+        }
+      proyectojson.push(nuevo);
+      localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
         window.location='proyecto.html';
         cargaProyectos(proyectojson);
     }
+
+    function actualizarProyecto(){
+      result = window.confirm("si actualiza este proyecto se perdera toda la información relacionada antes de la actualización");
+      if (result) {
+      proyecto= localStorage.getItem("proyecto");
+
+      let nombreP= document.querySelector("#nombreProyecto");
+      let descripcionP= document.querySelector("#descripcionProyecto");
+      let areaP= document.querySelector("#area");
+      let responsableP= document.querySelector("#nombreResponsable");
+      let planosP= document.querySelector("#planosProyecto");
+    
+      var nuevo={
+        "idProyecto": proyectojson[proyecto].idProyecto ,
+        "nombreProyecto": nombreP.value,
+        "descripcionProyecto": descripcionP.value,
+        "responsable":responsableP.value,
+        "areaTerreno":areaP.value,
+        "diseño":planosP.value,
+        "presupuesto":""
+        }
+      
+      proyectojson[proyecto]= nuevo;
+      localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
+      
+      window.location='proyecto.html'
+      }
+    }
+      function actualizacion() {
+        var id= localStorage.getItem("proyecto");
+        var a = localStorage.getItem("proyectonuevo");
+        proyectojson=JSON.parse(a);
+        console.log(proyectojson[id]);
+        let nombreP= document.querySelector("#nombreProyecto");
+        let descripcionP = document.querySelector("#descripcionProyecto");
+        let responsableP = document.querySelector("#nombreResponsable");
+        let areaP = document.querySelector("#area");
+        let planosP = document.querySelector("#planosProyecto");
+  
+        nombreP.setAttribute("value",proyectojson[id].nombreProyecto);
+        descripcionP.innerHTML=proyectojson[id].descripcionProyecto;
+        responsableP.setAttribute("value",proyectojson[id].responsable);
+        areaP.setAttribute("value",proyectojson[id].areaTerreno); 
+        planosP.setAttribute("value",JSON.stringify(proyectojson[id].diseño));
+  
+        if(planosP.value=='""')planosP.setAttribute("value","");
+      }
+      
+
+      
+    

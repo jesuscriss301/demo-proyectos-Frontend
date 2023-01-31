@@ -129,6 +129,8 @@ function cargaProyecto(){
       }
     
     function eliminar(id) {
+      result = window.confirm("si elimina este proyecto se perdera toda la informacion relacionada a este");
+      if (result) {
         var nuevo =[];
         for(var i in bitacorajson){
           if(i!=id){
@@ -138,4 +140,5 @@ function cargaProyecto(){
         bitacorajson=nuevo;
         localStorage.setItem("bitacoras",JSON.stringify(bitacorajson));
         cargaBitacoras(bitacorajson);
+      }
     }
