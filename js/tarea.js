@@ -4,20 +4,13 @@ jsonproyecto=JSON.parse(a);
 proyecto= localStorage.getItem("proyecto");
 cargaProyectos()
 
-var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/tarea.json";
+var url ="http://localhost:8080/proyectos";
 fetch(url)
 .then((response) => response.json())
 .then((json) => cargaTareas(json));
 
 function cargaTareas(json) {
-let a=localStorage.getItem("tareas");
 
-if(a!=null){
-    tareajson=JSON.parse(a);
-}else{
-    tareajson =json;
-    console.log(tareajson);
-}
 let tblBody= document.querySelector("#tareas");
 let tarea= document.querySelector("#tarea");
 let table = document.querySelector("#table");

@@ -1,18 +1,17 @@
 
+leerdatos();
 
-        var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/proyecto.json";
-        fetch(url)
-        .then((response) => response.json())
-        .then((json) => cargaProyectos(json));
+function leerdatos() {
+  var url ="http://localhost:8080/proyectos";
+  fetch(url)
+  .then((response) => response.json())
+  .then((json) => cargaProyectos(json));
+}
+       
 
     function cargaProyectos(json) {
-      let a=localStorage.getItem("proyectonuevo");
-       
-      if(a!=""){
-        proyectojson=JSON.parse(a);
-      }else{
-        proyectojson =json;
-      }
+
+      console.log(json);
         let tblBody= document.querySelector("#proyectos");
         let proyecto= document.querySelector("#proyecto");
         let table = document.querySelector("#table");
@@ -21,7 +20,7 @@
         let ver= document.querySelector("#ver");
         let plano= document.querySelector("#plano");
         tblBody.innerHTML="";
-        for (var i = 0; i < proyectojson.length; i++) {
+        for (var i = 0; i < json.length; i++) {
             
             // Crea las hileras de la tabla
             var hilera = document.createElement("tr");
@@ -31,7 +30,7 @@
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(JSON.stringify( proyectojson[i].idProyecto));
+              var textoCelda = document.createTextNode(json[i].id);
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
@@ -39,11 +38,11 @@
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(proyectojson[i].nombreProyecto.toString());
+              var textoCelda = document.createTextNode(json[i].nombreProyecto);
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode(proyectojson[i].descripcionProyecto.toString());
+              var textoCelda = document.createTextNode(json[i].descripcionProyecto);               
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
@@ -53,20 +52,20 @@
 
               var celda = document.createElement("td");
               var newplano=plano.cloneNode(true);
-              newplano.setAttribute("onclick", "plano("+i+")");
+              newplano.setAttribute("onclick", "plano("+json[i].id+")");
               //var textoCelda = document.createTextNode("prueba");
               celda.appendChild(newplano);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
 
               var newactualizar=actualizar.cloneNode(true);
-              newactualizar.setAttribute("onclick", "actualizar("+i+")");
+              newactualizar.setAttribute("onclick", "actualizar("+json[i].id+")");
 
               var newver=ver.cloneNode(true);
-              newver.setAttribute("onclick", "ver("+i+")");
+              newver.setAttribute("onclick", "ver("+json[i].id+")");
 
               var neweliminar=eliminar.cloneNode(true);
-              neweliminar.setAttribute("onclick", "eliminar("+i+")");
+              neweliminar.setAttribute("onclick", "eliminar("+json[i].id+")");
               celda.appendChild(newactualizar);
               celda.appendChild(newver);
               celda.appendChild(neweliminar);
@@ -77,8 +76,7 @@
           }
           
           table.appendChild(tblBody);
-          localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
-          proyecto.remove();
+          //proyecto.remove();
     }
     function fecha() {
         var f = new Date();
@@ -106,18 +104,16 @@
     function eliminar(id) {
       result = window.confirm("si elimina este proyecto se perdera toda la informacion relacionada a este");
       if (result) {
-        var nuevo =[];
-      for(var i in proyectojson){
-        if(i!=id){
-            nuevo.push(proyectojson[i]);
-        }
+        fetch("http://localhost:8080/proyectos/"+id, {
+      method: 'DELETE',
+      })
+      .then(res => res.text()) // or res.json()
+      .then(res => console.log(res))
       }
-      proyectojson=nuevo;
-      localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
-      cargaProyectos(proyectojson);
+      leerdatos();
       }
       
-    }
+    
 
     function crearProyecto() {
       
@@ -126,23 +122,18 @@
       let responsableP = document.querySelector("#nombreResponsable");
       let areaP = document.querySelector("#area");
       let planosP = document.querySelector("#planosProyecto");
-      let n =100;
-    try {
-      n = tareajson[tareajson.length-1].idTarea + 1;
-    } catch (error) {
-     n =100;
+
+        var nuevo=
+          {
+
+            "nombreProyecto":nombreP.value,
+            "descripcionProyecto": descripcionP.value,
+            "responsable": responsableP.value,
+            "areaTerreno":areaP.value,
+            "diseño": null,
+            "presupuesto": null
     }
-        var nuevo={
-          "idProyecto": n ,
-          "nombreProyecto": nombreP.value,
-          "descripcionProyecto": descripcionP.value,
-          "responsable":responsableP.value,
-          "areaTerreno":areaP.value,
-          "diseño":planosP.value,
-          "presupuesto":{} 
-        }
-      proyectojson.push(nuevo);
-      localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
+
         window.location='proyecto.html';
         cargaProyectos(proyectojson);
     }
@@ -159,7 +150,6 @@
       let planosP= document.querySelector("#planosProyecto");
     
       var nuevo={
-        "idProyecto": proyectojson[proyecto].idProyecto ,
         "nombreProyecto": nombreP.value,
         "descripcionProyecto": descripcionP.value,
         "responsable":responsableP.value,
@@ -167,33 +157,39 @@
         "diseño":planosP.value,
         "presupuesto":""
         }
-      
-      proyectojson[proyecto]= nuevo;
-      localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
+        fetch('http://localhost:8080/proyectos', {
+          method: 'POST',
+          body: nuevo
+      }).then(response => response.json())
+      }
       
       window.location='proyecto.html'
-      }
+      
     }
       function actualizacion() {
         var id= localStorage.getItem("proyecto");
-        var a = localStorage.getItem("proyectonuevo");
-        proyectojson=JSON.parse(a);
-        console.log(proyectojson[id]);
+
+        var url ="http://localhost:8080/proyectos" +id;
+        fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+
+        var id= localStorage.getItem("proyecto");
         let nombreP= document.querySelector("#nombreProyecto");
         let descripcionP = document.querySelector("#descripcionProyecto");
         let responsableP = document.querySelector("#nombreResponsable");
         let areaP = document.querySelector("#area");
         let planosP = document.querySelector("#planosProyecto");
   
-        nombreP.setAttribute("value",proyectojson[id].nombreProyecto);
-        descripcionP.innerHTML=proyectojson[id].descripcionProyecto;
-        responsableP.setAttribute("value",proyectojson[id].responsable);
-        areaP.setAttribute("value",proyectojson[id].areaTerreno); 
-        planosP.setAttribute("value",JSON.stringify(proyectojson[id].diseño));
+        nombreP.setAttribute("value",json.nombreProyecto);
+        descripcionP.innerHTML=json.descripcionProyecto;
+        responsableP.setAttribute("value",json.responsable);
+        areaP.setAttribute("value",json.areaTerreno); 
+        planosP.setAttribute("value",JSON.stringify(json.diseño));
   
         if(planosP.value=='""')planosP.setAttribute("value","");
-      }
-      
+      });
+    }
 
       
     

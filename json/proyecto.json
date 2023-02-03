@@ -1,40 +1,11 @@
 [
     {
-        "idProyecto":110,
-        "nombreProyecto": "departamento de sistemas",
-        "descripcionProyecto": "se requiere crear el de partamento d sistmas ubicdo cerca a la entrada ",
-        "responsable":"juan",
-        "areaTerreno":25,
-        "diseño":{
-                "idDiseño":"1",
-                "nombreDicseño":"edificiosistemas.pdf",
-                "direccionCarpeta":"C:/Users/Practicante_Sistemas/Desktop/demo-proyectos/prueba",
-                "fechaDiceño":"27/01/2023",
-                "aprovado":false
-            },
-        "presupuesto":{
-                "idPresupuesto":122,
-                "cotizacion":10212222,
-                "personal": "",
-                "material":"",
-                "fechaPresupuesto":"12/10/2018"
-    
-            } 
-    },
-    {
-        "idProyecto":111,
-        "nombreProyecto": "prueba",
-        "descripcionProyecto": "esto es una prueba de craer un proyecto",
-        "responsable":"Pedro Garcia",
-        "areaTerreno":45,
-        "diseño":{},
-        "presupuesto":{
-            "idPresupuesto":123,
-            "cotizacion":10212222,
-            "personal": "",
-            "material":"",
-            "fechaPresupuesto":"12/10/2018"
-
-        }
+        "id": 3,
+        "nombreProyecto": "proyecto brueba2",
+        "descripcionProyecto": "edicion de proyecto2",
+        "responsable": "Jeison 2",
+        "areaTerreno": 80,
+        "diseño": null,
+        "presupuesto": null
     }
 ]
