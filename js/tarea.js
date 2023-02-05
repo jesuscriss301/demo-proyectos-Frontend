@@ -77,7 +77,7 @@ for (var i = 0; i < json.length; i++) {
 
 function cargaProyectos(json){
 
-
+  proyecto= localStorage.getItem("proyecto");
     let codigoProyecto=document.querySelector("#codigoProyecto");
     let nombreProyecto=document.querySelector("#nombreProyecto");
     let responsable= document.querySelector("#responsable");
@@ -133,8 +133,6 @@ function actualizar(id) {
     let completoT = document.querySelector("#completo"); 
     let proyecto = localStorage.getItem("proyecto");
     let tarea=localStorage.getItem("idtarea");
-
-    console.log(typeof(proyecto) +"="+ typeof(tarea));
     var nuevo={
       "idProyecto": {
           "id": parseInt(proyecto),
@@ -171,23 +169,31 @@ function actualizar(id) {
     });
   
         window.location='tarea.html';
-        console.log(proyecto +"="+ tarea);
         leerdatos()
   }
 
   function fecha() {
     var f = new Date();
-    return  f.getFullYear()+ "-"+(f.getMonth() +1) + "-"+f.getDate() ;
+    let dia=f.getDate();
+    let mes=(f.getMonth() +1);
+    if (dia<10) {
+      dia="0"+dia;
+    }
+    if (mes<10) {
+      mes="0"+mes;
+    }
+    return  f.getFullYear()+ "-"+mes+ "-"+dia ;
 }
-async function actualizarTarea(){
+function actualizarTarea(){
 
   result = window.confirm("si actualiza esta tarea se perdera toda la información relacionada antes de la actualización");
   if (result) {
   let nombreT= document.querySelector("#nombreTarea");
   let descripcionT= document.querySelector("#DescripcionTarea");
   let completoT= document.querySelector("#completo");
-  let proyecto = localStorage.getItem("idproyecto");
+  let proyecto = localStorage.getItem("proyecto");
   let tarea=localStorage.getItem("idtarea");
+  console.log(proyecto);
   var nuevo={
     "id": parseInt(tarea),
     "idProyecto": {
@@ -208,8 +214,9 @@ async function actualizarTarea(){
     "completado":completoT.checked,
     "fecha": fecha()
 }
+
   var url="http://localhost:8080/tareas" ;
-      const response = await fetch(url, {
+      const response =  fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -231,7 +238,7 @@ async function actualizarTarea(){
     fetch(url)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
+     
       let nombreT= document.querySelector("#nombreTarea");
       let descripcionT= document.querySelector("#DescripcionTarea");
       let checkT= document.querySelector("#completo");
@@ -241,6 +248,4 @@ async function actualizarTarea(){
       checkT.checked=json.completado;
       cargaProyectos(json);
     });
-
-   
   }
