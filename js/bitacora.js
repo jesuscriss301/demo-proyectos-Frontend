@@ -30,15 +30,15 @@ function cargaProyecto(json){
       nombreTarea.textContent= json[0].idTarea.nombreTarea;
 
       }else{
-        var url ="http://localhost:8080/bitacoras/"+tarea;
+        var url ="http://localhost:8080/tareas/"+tarea;
         fetch(url)
         .then((response) => response.json())
         .then((res) => {
-          codigoProyecto.textContent="#"+res[0].idTarea.idProyecto.id;
-          nombreProyecto.textContent=res[0].idTarea.idProyecto.nombreProyecto;
-          responsable.textContent= res[0].idTarea.idProyecto.responsable;
-          codigotarea.textContent="#"+res[0].idTarea.id;
-          nombreTarea.textContent= res[0].idTarea.nombreTarea;
+          codigoProyecto.textContent="#"+res.idProyecto.id;
+          nombreProyecto.textContent=res.idProyecto.nombreProyecto;
+          responsable.textContent= res.idProyecto.responsable;
+          codigotarea.textContent="#"+res.id;
+          nombreTarea.textContent= res.nombreTarea;
         });
       }
   }
@@ -101,49 +101,161 @@ function cargaProyecto(json){
 
     function crearRegistros() {
         
+        let tarea= localStorage.getItem("idtarea");
         let descripcionB = document.querySelector("#descripcioBitacora");
         let imagen = document.querySelector("#direcionFotografia");
-        let n =100;
-        try {
-          n = bitacorajson[bitacorajson.length-1].idBitacora + 1;
-        } catch (error) {
-         n =100;
-        }
-        
           var nuevo= {
-            "idProyecto":jsonproyecto.idProyecto,
-            "idTarea":jsontarea.idTarea,
-            "idBitacora":n,
-            "descripcionBitacora":descripcionB.value,
-            "fotografia":imagen.value,
-            "fecha":fecha()
+            "idTarea": {
+                "id": parseInt(tarea),
+                "idProyecto": {
+                    "id": 0,
+                    "nombreProyecto": "",
+                    "descripcionProyecto": "",
+                    "responsable": "",
+                    "areaTerreno": 0,
+                    "diseno": null,
+                    "presupuesto": null
+                },
+                "nombreTarea": "",
+                "descripcionTarea": "",
+                "idEtapa": {
+                    "id": 3,
+                    "nombreEtapa": ""
+                },
+                "completado": false,
+                "fecha": ""
+            },
+            "descripcionBitacora": descripcionB.value,
+            "idFoto": {
+                "id": 1,
+                "nombreFoto": "",
+                "direccionCarpeta":imagen.value,
+                "fecha": ""
+            },
+            "fecha": fecha()
         }
-        bitacorajson.push(nuevo);
-        localStorage.setItem("bitacoras",JSON.stringify(bitacorajson));
-        window.location='bitacora.html';
-        cargaBitacoras(bitacorajson);
+        console.log(nuevo);
+        var url="http://localhost:8080/bitacoras" 
+        const response = fetch(url, {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: JSON.stringify(nuevo) // body data type must match "Content-Type" header
+          });
+        
+        window.location='bitacora.html'
+        leerdatos();
       }
+     
+      
       function fecha() {
         var f = new Date();
-        return f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+        let dia=f.getDate();
+        let mes=(f.getMonth() +1);
+        if (dia<10) {
+          dia="0"+dia;
+        }
+        if (mes<10) {
+          mes="0"+mes;
+        }
+        return  f.getFullYear()+ "-"+mes+ "-"+dia ;
     }
+
+
     function actualizar(id) {
       
         localStorage.setItem("bitacora", id);
-        window.location='crearBitacora.html'
+        window.location='actualizarRegistro.html'
       }
     
     function eliminar(id) {
       result = window.confirm("si elimina este proyecto se perdera toda la informacion relacionada a este");
       if (result) {
-        var nuevo =[];
-        for(var i in bitacorajson){
-          if(i!=id){
-              nuevo.push(bitacorajson[i]);
-          }
-        }
-        bitacorajson=nuevo;
-        localStorage.setItem("bitacoras",JSON.stringify(bitacorajson));
-        cargaBitacoras(bitacorajson);
+        fetch("http://localhost:8080/bitacoras/"+id, {
+      method: 'DELETE',
+      })
+      .then(res => res.text()) // or res.json()
+      .then(res => {console.log(res);
+      
+      leerdatos();})
       }
     }
+    function actualizarBitacora(){
+
+      result = window.confirm("si actualiza esta tarea se perdera toda la información relacionada antes de la actualización");
+      if (result) {
+        let tarea= localStorage.getItem("idtarea");
+        let bitacora= localStorage.getItem("bitacora");
+        let descripcionB = document.querySelector("#descripcioBitacora");
+        let imagen = document.querySelector("#direcionFotografia");
+          var nuevo= {
+            "id":parseInt(bitacora),
+            "idTarea": {
+                "id": parseInt(tarea),
+                "idProyecto": {
+                    "id": 0,
+                    "nombreProyecto": "",
+                    "descripcionProyecto": "",
+                    "responsable": "",
+                    "areaTerreno": 0,
+                    "diseno": null,
+                    "presupuesto": null
+                },
+                "nombreTarea": "",
+                "descripcionTarea": "",
+                "idEtapa": {
+                    "id": 3,
+                    "nombreEtapa": ""
+                },
+                "completado": false,
+                "fecha": ""
+            },
+            "descripcionBitacora": descripcionB.value,
+            "idFoto": {
+                "id": 1,
+                "nombreFoto": "",
+                "direccionCarpeta":imagen.value,
+                "fecha": ""
+            },
+            "fecha": fecha()
+        }
+        console.log(nuevo);
+      var url="http://localhost:8080/bitacoras" ;
+          const response =  fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(nuevo) // body data type must match "Content-Type" header
+            });
+      window.location='bitacora.html'
+      }
+    }
+      function actualizacion() {
+        var id= localStorage.getItem("Bitacora");
+        var url ="http://localhost:8080/tareas/"+id;
+        fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+         
+        let tarea= localStorage.getItem("idtarea");
+        let descripcionB = document.querySelector("#descripcioBitacora");
+        let imagen = document.querySelector("#direcionFotografia");
+      
+          descripcionB.setAttribute("value",json.descripcionBitacora);
+          leerdatos();
+        });
+      }
