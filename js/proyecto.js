@@ -1,5 +1,5 @@
 
-leerdatos();
+//leerdatos();
 
 function leerdatos() {
   var url ="http://localhost:8080/proyectos";
@@ -11,7 +11,6 @@ function leerdatos() {
 
     function cargaProyectos(json) {
 
-      console.log(json);
         let tblBody= document.querySelector("#proyectos");
         let proyecto= document.querySelector("#proyecto");
         let table = document.querySelector("#table");
@@ -82,19 +81,20 @@ function leerdatos() {
         var f = new Date();
         return f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
     }
-    function actualizar(id) {
-      
-      localStorage.setItem("proyecto", id);
-      window.location='actualizarProyecto.html'
-
-    }
+   
 
     function plano(id) {
-      let plano = proyectojson[id].diseño.toString();
+      var url ="http://localhost:8080/proyectos/"+id;
+       fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+      let plano = json.diseño;
       if (plano != {}) {
-        var win = window.open(plano, '_blank');
+        console.log(json.diseño.direccionCarpeta);
+        var win = window.open(json.diseño.direccionCarpeta, '_blank');
         win.focus();
       }
+    });
     }
     function ver(id) {
       localStorage.setItem("proyecto", id);
@@ -123,26 +123,38 @@ function leerdatos() {
       let areaP = document.querySelector("#area");
       let planosP = document.querySelector("#planosProyecto");
 
-        var nuevo=
-          {
-
-            "nombreProyecto":nombreP.value,
-            "descripcionProyecto": descripcionP.value,
-            "responsable": responsableP.value,
-            "areaTerreno":areaP.value,
-            "diseño": null,
-            "presupuesto": null
+        var nuevo={
+          "nombreProyecto": nombreP.value,
+          "descripcionProyecto":descripcionP.value,
+          "responsable": responsableP.value,
+          "areaTerreno":areaP.value,
+          "diseno": null,
+          "presupuesto": null
     }
 
+   var url="http://localhost:8080/proyectos" 
+  const response = fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(nuevo) // body data type must match "Content-Type" header
+    });
+  
         window.location='proyecto.html';
-        cargaProyectos(proyectojson);
+        leerdatos()
     }
 
     function actualizarProyecto(){
       result = window.confirm("si actualiza este proyecto se perdera toda la información relacionada antes de la actualización");
       if (result) {
-      proyecto= localStorage.getItem("proyecto");
-
+        let a= localStorage.getItem("idProyecto");
       let nombreP= document.querySelector("#nombreProyecto");
       let descripcionP= document.querySelector("#descripcionProyecto");
       let areaP= document.querySelector("#area");
@@ -150,46 +162,62 @@ function leerdatos() {
       let planosP= document.querySelector("#planosProyecto");
     
       var nuevo={
-        "nombreProyecto": nombreP.value,
-        "descripcionProyecto": descripcionP.value,
-        "responsable":responsableP.value,
-        "areaTerreno":areaP.value,
-        "diseño":planosP.value,
-        "presupuesto":""
-        }
-        fetch('http://localhost:8080/proyectos', {
-          method: 'POST',
-          body: nuevo
-      }).then(response => response.json())
+          "id": a,
+          "nombreProyecto": nombreP.value,
+          "descripcionProyecto":descripcionP.value,
+          "responsable": responsableP.value,
+          "areaTerreno":areaP.value,
+          "diseno": null,
+          "presupuesto": null
       }
+      var url="http://localhost:8080/proyectos" 
+      const response = fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(nuevo) // body data type must match "Content-Type" header
+        });
       
       window.location='proyecto.html'
+      leerdatos();
+    }}
+    function actualizar(id) {
       
+      localStorage.setItem("idProyecto",id+"")
+      locate();
+
+
     }
       function actualizacion() {
-        var id= localStorage.getItem("proyecto");
 
-        var url ="http://localhost:8080/proyectos" +id;
+        let a= localStorage.getItem("idProyecto");
+        
+        var url ="http://localhost:8080/proyectos/"+a;
         fetch(url)
         .then((response) => response.json())
         .then((json) => {
 
-        var id= localStorage.getItem("proyecto");
         let nombreP= document.querySelector("#nombreProyecto");
         let descripcionP = document.querySelector("#descripcionProyecto");
         let responsableP = document.querySelector("#nombreResponsable");
         let areaP = document.querySelector("#area");
         let planosP = document.querySelector("#planosProyecto");
-  
-        nombreP.setAttribute("value",json.nombreProyecto);
+        nombreP.setAttribute("value",json.nombreProyecto.toString());
         descripcionP.innerHTML=json.descripcionProyecto;
         responsableP.setAttribute("value",json.responsable);
         areaP.setAttribute("value",json.areaTerreno); 
-        planosP.setAttribute("value",JSON.stringify(json.diseño));
+        //planosP.setAttribute("value",json.diseño.direccionCarpeta);
   
-        if(planosP.value=='""')planosP.setAttribute("value","");
+        if(planosP.value=='""'||planosP.value=="undefined" )planosP.setAttribute("value","");
       });
     }
-
-      
-    
+   function locate() {
+      window.location='actualizarProyecto.html';
+    }

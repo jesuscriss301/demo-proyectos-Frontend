@@ -1,43 +1,49 @@
-let a=localStorage.getItem("proyectonuevo");
-let b= localStorage.getItem("tareas");
-jsontarea= JSON.parse(b);
-jsonproyecto=JSON.parse(a);
-proyecto= localStorage.getItem("proyecto");
-tarea= localStorage.getItem("tarea");
-cargaProyecto();
-
-var url ="https://raw.githubusercontent.com/jesuscriss301/demo-proyectos-Frontend/main/json/bitacora.json";
-fetch(url)
-.then((response) => response.json())
-.then((json) => cargaBitacoras(json));
 
 
-function cargaProyecto(){
-    
-    jsonproyecto= jsonproyecto[proyecto];
-    jsontarea=jsontarea[tarea];
+function leerdatos() {
+
+  proyecto= localStorage.getItem("proyecto");
+  tarea= localStorage.getItem("idtarea");
+
+  var url ="http://localhost:8080/bitacoras/tareas/"+tarea;
+    fetch(url)
+    .then((response) => response.json())
+    .then((json) => {cargaProyecto(json);
+    cargaBitacoras(json);
+    });
+}
+
+function cargaProyecto(json){
   
       let codigoProyecto=document.querySelector("#codigoProyecto");
       let nombreProyecto=document.querySelector("#nombreProyecto");
       let responsable= document.querySelector("#responsable");
       let codigotarea=document.querySelector("#codigoTarea");
       let nombretarea=document.querySelector("#nombreTarea");
-      codigoProyecto.textContent="#"+jsonproyecto.idProyecto;
-      nombreProyecto.textContent=jsonproyecto.nombreProyecto;
-      responsable.textContent= jsonproyecto.responsable;
-      codigotarea.textContent="#"+jsontarea.idTarea;
-      nombreTarea.textContent= jsontarea.nombreTarea;
-      
+      console.log(json);
+      if (json!=0&&json != null) {
+
+      codigoProyecto.textContent="#"+json[0].idTarea.idProyecto.id;
+      nombreProyecto.textContent=json[0].idTarea.idProyecto.nombreProyecto;
+      responsable.textContent= json[0].idTarea.idProyecto.responsable;
+      codigotarea.textContent="#"+json[0].idTarea.id;
+      nombreTarea.textContent= json[0].idTarea.nombreTarea;
+
+      }else{
+        var url ="http://localhost:8080/bitacoras/"+tarea;
+        fetch(url)
+        .then((response) => response.json())
+        .then((res) => {
+          codigoProyecto.textContent="#"+res[0].idTarea.idProyecto.id;
+          nombreProyecto.textContent=res[0].idTarea.idProyecto.nombreProyecto;
+          responsable.textContent= res[0].idTarea.idProyecto.responsable;
+          codigotarea.textContent="#"+res[0].idTarea.id;
+          nombreTarea.textContent= res[0].idTarea.nombreTarea;
+        });
+      }
   }
 
   function cargaBitacoras(json) {
-    let a=localStorage.getItem("bitacoras");
-    
-    if(a!=null){
-        bitacorajson=JSON.parse(a);
-    }else{
-        bitacorajson =json;
-    }
     let tblBody= document.querySelector("#bitacoras");
     let tarea= document.querySelector("#bitacora");
     let table = document.querySelector("#table");
@@ -46,9 +52,8 @@ function cargaProyecto(){
     let eliminar= document.querySelector("#eliminar");
     
     tblBody.innerHTML="";
-    for (var i = 0; i < bitacorajson.length; i++) {
-        // Crea las hileras de la tabla
-        if (jsontarea.idTarea == bitacorajson[i].idTarea) {
+    for (var i = 0; i < json.length; i++) {
+
         var hilera = document.createElement("tr");
         
           var celda = document.createElement("td");
@@ -56,29 +61,29 @@ function cargaProyecto(){
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
           var celda = document.createElement("td");
-          var textoCelda = document.createTextNode(bitacorajson[i].idBitacora.toString());
+          var textoCelda = document.createTextNode(json[i].id);
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
           var celda = document.createElement("td");
-          var textoCelda = document.createTextNode(bitacorajson[i].fecha.toString());
+          var textoCelda = document.createTextNode(json[i].fecha);
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
           var celda = document.createElement("td");
-          var textoCelda = document.createTextNode(bitacorajson[i].descripcionBitacora.toString());
+          var textoCelda = document.createTextNode(json[i].descripcionBitacora);
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
           var celda = document.createElement("td");
           var img = imagen.cloneNode(true);
-          img.setAttribute("src", bitacorajson[i].fotografia.toString());
+          img.setAttribute("src", json[i].idFoto.direccionCarpeta);
           celda.appendChild(img);
           hilera.appendChild(celda);
           var celda = document.createElement("td");
 
       var newactualizar=actualizar.cloneNode(true);
-      newactualizar.setAttribute("onclick", "actualizar("+i+")");
+      newactualizar.setAttribute("onclick", "actualizar("+json[i].id+")");
 
       var neweliminar=eliminar.cloneNode(true);
-      neweliminar.setAttribute("onclick", "eliminar("+i+")");
+      neweliminar.setAttribute("onclick", "eliminar("+json[i].id+")");
       celda.appendChild(newactualizar);
       
       celda.appendChild(neweliminar);
@@ -87,7 +92,7 @@ function cargaProyecto(){
     
         // agrega la hilera al final de la tabla (al final del elemento tblbody)
         tblBody.appendChild(hilera);
-      }}
+      }
       
       table.appendChild(tblBody);
       //localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
