@@ -23,7 +23,7 @@
               <a class="nav-link"  href="../index.html">Inicio</a>
               <a class="nav-link" href="proyecto.html">Proyectos</a>
               <a class="nav-link active" aria-current="page" href="#">Tareas</a>
-              <a class="nav-link" href="bitacora.html">Seguimiento</a>
+              
             </div>
           </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,13 +41,22 @@
           <tbody class="mx-5">
               <tr>
                   <th scope="row" class="table-active">codigo de proyecto:</th>
-                  <th><h4 id="codigoProyecto">#1521</h4></th>
+                  <th><h4 id="codigoProyecto"></h4></th>
                   <th scope="row" class="table-active"> Nombre de proyecto:</th>
-                  <th><h4 id="nombreProyecto">Construción de edificio</h4></th>
+                  <th><h4 id="nombreProyecto"></h4></th>
               </tr>
               <tr>
                   <th scope="row" class="table-active">Responsable:</th>
-                  <th id="responsable">Jose Antonio Perez Albarracin</th>
+                  <th id="responsable"></th>
+                  <th scope="row" class="table-active">Diseño:</th>
+                  <th class="d-flex">
+                    <button id="plano" class="btn btn-success  d-flex align-items-center m-1" type="button" onclick="plano()">
+                      <i class="bi bi-file-arrow-down"></i>
+                    </button>
+                    <button id="plano" class="btn btn-success  d-flex align-items-center m-1" type="button" onclick="addplano()">
+                      <i class="bi bi-file-earmark-plus"></i>
+                    </button> 
+                  </th>
               </tr>
   
           </tbody>
@@ -78,7 +87,9 @@
                   <th>1521</th>
                   <th>Construción edificio</th>
                   <th>constrir un edificio  x pisos en la zona de la la entrada</th>
-                  <th>Prueba</th>
+                  <th >
+                    <input class="form-check-input" type="checkbox" role="switch" id="completo" disabled>
+                  </th>
                   <th id="botones">
                     <button id="actualizar" class="btn btn-danger  d-flex align-items-center m-1" type="button" onclick="actualizar()">
                       <i class="bi bi-pencil"></i>

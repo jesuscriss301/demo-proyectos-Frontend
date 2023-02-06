@@ -88,10 +88,10 @@ function leerdatos() {
        fetch(url)
         .then((response) => response.json())
         .then((json) => {
-      let plano = json.diseño;
-      if (plano != {}) {
-        console.log(json.diseño.direccionCarpeta);
-        var win = window.open(json.diseño.direccionCarpeta, '_blank');
+      let plano = json.diseno;
+      if (plano != 0 && plano!=null) {
+        console.log(json.diseno.direccionCarpeta);
+        var win = window.open(json.diseno.direccionCarpeta, '_blank');
         win.focus();
       }
     });
@@ -108,9 +108,10 @@ function leerdatos() {
       method: 'DELETE',
       })
       .then(res => res.text()) // or res.json()
-      .then(res => console.log(res))
+      .then(res => {console.log(res);
+        leerdatos();
+      })
       }
-      leerdatos();
       }
       
     
@@ -128,10 +129,16 @@ function leerdatos() {
           "descripcionProyecto":descripcionP.value,
           "responsable": responsableP.value,
           "areaTerreno":areaP.value,
-          "diseno": null,
+          "diseno":{
+            "id": 1,
+            "nombreDiseño": "",
+            "direccionCarpeta": "",
+            "fechaDiseño": "",
+            "aprovado": false
+        },
           "presupuesto": null
     }
-
+    console.log(nuevo);
    var url="http://localhost:8080/proyectos" 
   const response = fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -146,7 +153,7 @@ function leerdatos() {
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(nuevo) // body data type must match "Content-Type" header
     });
-  
+        console.log(response);
         window.location='proyecto.html';
         leerdatos()
     }
@@ -167,7 +174,13 @@ function leerdatos() {
           "descripcionProyecto":descripcionP.value,
           "responsable": responsableP.value,
           "areaTerreno":areaP.value,
-          "diseno": null,
+          "diseno":{
+            "id": 1,
+            "nombreDiseño": "",
+            "direccionCarpeta": "",
+            "fechaDiseño": "",
+            "aprovado": false
+        },
           "presupuesto": null
       }
       var url="http://localhost:8080/proyectos" 
@@ -189,11 +202,8 @@ function leerdatos() {
       leerdatos();
     }}
     function actualizar(id) {
-      
       localStorage.setItem("idProyecto",id+"")
       locate();
-
-
     }
       function actualizacion() {
 

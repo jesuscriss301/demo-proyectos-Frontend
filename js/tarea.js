@@ -17,6 +17,7 @@ let table = document.querySelector("#table");
 let actualizar= document.querySelector("#actualizar");
 let eliminar= document.querySelector("#eliminar");
 let ver= document.querySelector("#ver");
+let completado= document.querySelector("#completo");
 tblBody.innerHTML="";
 for (var i = 0; i < json.length; i++) {
     // Crea las hileras de la tabla
@@ -47,8 +48,9 @@ for (var i = 0; i < json.length; i++) {
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode(json[i].completado);
-      celda.appendChild(textoCelda);
+      var newcompletado=completado.cloneNode(true);
+      newcompletado.checked=json[i].completado;
+      celda.appendChild(newcompletado);
       hilera.appendChild(celda);
       
       var celda = document.createElement("td");
@@ -73,6 +75,25 @@ for (var i = 0; i < json.length; i++) {
   table.appendChild(tblBody);
   //localStorage.setItem("proyectonuevo",JSON.stringify(proyectojson));
   //tarea.remove();
+    }
+    function addplano() {
+      window.location='actualizarPlano.html'
+
+    }
+
+    function plano() {
+      let id = localStorage.getItem("proyecto");
+      var url ="http://localhost:8080/proyectos/"+id;
+       fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+      let plano = json.diseno;
+      if (plano != 0 && plano!=null) {
+        console.log(json.diseno.direccionCarpeta);
+        var win = window.open(json.diseno.direccionCarpeta, '_blank');
+        win.focus();
+      }
+    });
     }
 
 function cargaProyectos(json){
@@ -152,7 +173,7 @@ function actualizar(id) {
       "completado":completoT.checked,
       "fecha": fecha()
   }
-   
+   console.log(nuevo);
   var url="http://localhost:8080/tareas" 
   const response = fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -166,10 +187,13 @@ function actualizar(id) {
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(nuevo) // body data type must match "Content-Type" header
-    });
+    })
+    .then((response) => response.json())
+    .then((json) => {console.log(json);});
+    
   
         window.location='tarea.html';
-        leerdatos()
+        leerdatos();
   }
 
   function fecha() {

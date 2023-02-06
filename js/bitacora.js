@@ -8,7 +8,8 @@ function leerdatos() {
   var url ="http://localhost:8080/bitacoras/tareas/"+tarea;
     fetch(url)
     .then((response) => response.json())
-    .then((json) => {cargaProyecto(json);
+    .then((json) => {console.log(json);
+      cargaProyecto(json);
     cargaBitacoras(json);
     });
 }
@@ -21,7 +22,7 @@ function cargaProyecto(json){
       let codigotarea=document.querySelector("#codigoTarea");
       let nombretarea=document.querySelector("#nombreTarea");
       console.log(json);
-      if (json!=0&&json != null) {
+      if (json != 0 &&json != null && json.status!=500) {
 
       codigoProyecto.textContent="#"+json[0].idTarea.idProyecto.id;
       nombreProyecto.textContent=json[0].idTarea.idProyecto.nombreProyecto;
@@ -245,8 +246,8 @@ function cargaProyecto(json){
       }
     }
       function actualizacion() {
-        var id= localStorage.getItem("Bitacora");
-        var url ="http://localhost:8080/tareas/"+id;
+        var id= localStorage.getItem("bitacora");
+        var url ="http://localhost:8080/bitacoras/"+id;
         fetch(url)
         .then((response) => response.json())
         .then((json) => {
@@ -255,7 +256,7 @@ function cargaProyecto(json){
         let descripcionB = document.querySelector("#descripcioBitacora");
         let imagen = document.querySelector("#direcionFotografia");
       
-          descripcionB.setAttribute("value",json.descripcionBitacora);
+          descripcionB.innerHTML=json.descripcionBitacora;
           leerdatos();
         });
       }

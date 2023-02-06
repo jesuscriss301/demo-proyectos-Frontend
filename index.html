@@ -36,8 +36,22 @@
         </div>
 
       </nav>
+      
+     
       <div class="mx-5" >
         <h1 class="justify-content-center"><img src="https://carboexco.com/wp-content/uploads/2019/07/logo-carboexco.png" style="width: 50%;" alt="Carboexpo"></h1>
+        <h2 class="text-danger text-center ">Análisis de proyectos</h2>
+        <div class="container my-5">
+          
+          <div class="row">
+              <div class="col-6">
+                  <canvas id="speedChart"></canvas>
+              </div>
+              <div class="col-6">
+                  <canvas id="myChart" style="width:100%;"></canvas>
+              </div>
+          </div>
+        </div>
         <p>
           <strong class="text-danger">CARBOEXCO C.I Ltda.</strong>, define una estructura organizacional jerárquica, ambigua pero altamente funcional y efectiva que ha logrado mantener en el tiempo a la compañía, cuyo objetivo principal ha sido mantenerse competitivamente como uno de los principales productores de coque.
         </p>
@@ -51,6 +65,7 @@
       </div>
 
       <div class="row justify-content-around mt-5">
+        
         <div class="col-4">
           <h3 class="text-danger">Misión</h3>
           <p>Suministrar de manera confiable a los  mercados internacionales, coque de excelente calidad, producido con mezclas de carbones cuidadosamente seleccionados,  para garantizar un producto que satisfaga los requerimientos de la industria de ferroaleaciones, con un desarrollo ambiental, social y económico sostenible. Cumpliendo con las normas constitucionales e institucionales; comprometidos con el desarrollo de Norte de Santander.</p>
@@ -66,23 +81,13 @@
 
 
 
-      <!--
+   
 
-      <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <canvas id="speedChart"></canvas>
-            </div>
-            <div class="col-12">
-                <canvas id="myChart" style="width:100%;"></canvas>
-            </div>
-        </div>
-      </div>
 
       <div>
       
         
-      -->
+      
         <!--
         seccion especial para lo scripts de el grafico de ondas
       -->
@@ -94,10 +99,10 @@
         Chart.defaults.global.defaultFontSize = 18;
         
         var speedData = {
-          labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
+          labels: ["Caseta de control", "Bateria n°3", "Cunetas", "Tolva 300"],
           datasets: [{
-            label: "Car Speed (mph)",
-            data: [0, 59, 75, 20, 20, 55, 40],
+            label: "Avance de Proyectos (%)",
+            data: [0, 59, 75, 20],
           }]
         };
         
@@ -106,7 +111,7 @@
             display: true,
             position: 'top',
             labels: {
-              boxWidth: 80,
+              boxWidth: 100,
               fontColor: 'black'
             }
           }
@@ -125,8 +130,8 @@
         -->
 
         <script>
-        var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-            var yValues = [55, 49, 44, 24, 15];
+        var xValues = ["Obras civiles", "Mantentenimientos", "Reparacio de Hornos" ];
+            var yValues = [55, 49, 44,];
             var barColors = [
               "#b91d47",
               "#00aba9",
@@ -147,7 +152,7 @@
               options: {
                 title: {
                   display: true,
-                  text: "World Wide Wine Production 2018"
+                  text: "Proyectos"
                 }
               }
             });
