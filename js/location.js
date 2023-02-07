@@ -7,3 +7,9 @@ function crearTareas() {
 function crearRegistro() {
     window.location='crearRegistro.html'
 }
+function tarealocal() {
+    window.location='tarea.html'
+}
+function proyectolocal() {
+    window.location='proyecto.html'
+}

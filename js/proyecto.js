@@ -45,7 +45,7 @@ function leerdatos() {
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
               var celda = document.createElement("td");
-              var textoCelda = document.createTextNode("0%");
+              var textoCelda = document.createTextNode("10%");
               celda.appendChild(textoCelda);
               hilera.appendChild(celda);
 

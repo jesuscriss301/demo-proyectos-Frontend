@@ -99,10 +99,10 @@
         Chart.defaults.global.defaultFontSize = 18;
         
         var speedData = {
-          labels: ["Caseta de control", "Bateria n°3", "Cunetas", "Tolva 300"],
+          labels: ["Caseta de control", "Bateria n°4", "Cunetas", "Bateria n°5", "proyectos"],
           datasets: [{
             label: "Avance de Proyectos (%)",
-            data: [0, 59, 75, 20],
+            data: [61, 59, 75, 59, 0],
           }]
         };
         
@@ -118,7 +118,7 @@
         };
         
         var lineChart = new Chart(speedCanvas, {
-          type: 'line',
+          type: 'bar',
           data: speedData,
           options: chartOptions
         });
